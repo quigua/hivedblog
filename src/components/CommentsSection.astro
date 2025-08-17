@@ -1,0 +1,190 @@
+---
+interface Props {
+  author: string;
+  permlink: string;
+}
+
+const { author, permlink } = Astro.props;
+---
+
+<div id="comments-section" class="mt-10 prose lg:prose-xl mx-auto" data-author={author} data-permlink={permlink}>
+  <h2 class="text-3xl font-bold mb-6">Comments</h2>
+  <div id="comments-list" class="space-y-6">
+    <p>Loading comments...</p>
+  </div>
+</div>
+
+<script> // No is:inline
+  // marked is now loaded globally via Layout.astro, so no import needed here
+
+  console.log("CommentsSection script is running!");
+
+  const HIVE_API_NODE = "https://api.hive.blog";
+
+  // Function to fetch direct replies for a given parent
+  async function fetchDirectReplies(parentAuthor, parentPermlink) {
+    const payload = {
+      jsonrpc: "2.0",
+      method: "condenser_api.get_content_replies",
+      params: [parentAuthor, parentPermlink],
+      id: 1
+    };
+
+    try {
+      const response = await fetch(HIVE_API_NODE, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const jsonResponse = await response.json();
+      if (!jsonResponse.result) {
+        console.error("API response missing 'result' key for get_content_replies:", jsonResponse);
+        return [];
+      }
+      return jsonResponse.result;
+    } catch (error) {
+      console.error(`Error fetching direct replies for @${parentAuthor}/${parentPermlink}:`, error);
+      return [];
+    }
+  }
+
+  // Recursive function to fetch and build the full comment tree
+  async function fetchAndBuildCommentTree(parentAuthor, parentPermlink) {
+    const directReplies = await fetchDirectReplies(parentAuthor, parentPermlink);
+    const commentsWithReplies = [];
+
+    for (const comment of directReplies) {
+      // Recursively fetch replies for the current comment
+      comment.replies = await fetchAndBuildCommentTree(comment.author, comment.permlink);
+      commentsWithReplies.push(comment);
+    }
+    return commentsWithReplies;
+  }
+
+  // Main function to start fetching comments for the post
+  async function fetchCommentsForPost(postAuthor, postPermlink) {
+    console.log("Fetching comments for post:", postAuthor, postPermlink);
+    const comments = await fetchAndBuildCommentTree(postAuthor, postPermlink);
+    console.log("Final fetched comments tree:", comments);
+    return comments;
+  }
+
+  function renderComments(comments, parentElementId) {
+    const commentsList = document.getElementById(parentElementId);
+    if (!commentsList) return;
+
+    commentsList.innerHTML = ''; // Clear loading message
+
+    if (comments.length === 0) {
+      commentsList.innerHTML = '<p>No comments yet.</p>';
+      return;
+    }
+
+    function renderComment(comment, container) {
+      console.log("Inside renderComment. Comment object:", comment);
+      console.log("Comment body directly:", comment.body);
+
+      const commentDiv = document.createElement('div');
+      commentDiv.className = 'bg-white p-4 rounded-lg shadow-md';
+
+      // Calculate votes and HBD earned
+      const votesCount = comment.active_votes ? comment.active_votes.length : 0;
+      const hbdEarned = parseFloat(comment.total_payout_value.split(' ')[0] || '0').toFixed(3);
+
+      // Render Markdown body to HTML using the global marked object
+      let renderedBody;
+      try {
+        // Check if marked is available globally
+        if (typeof marked !== 'undefined' && typeof marked.parse === 'function') {
+          console.log("Attempting to parse Markdown with global marked.parse. Input:", comment.body);
+          renderedBody = marked.parse(comment.body);
+          console.log("Global marked.parse successful. Output:", renderedBody);
+        } else {
+          console.warn("Global 'marked' object not found or not a function. Falling back to plain text.");
+          renderedBody = `<p>${comment.body}</p>`;
+        }
+      } catch (e) {
+        console.error("Error parsing markdown with global marked:", e);
+        renderedBody = `<p>${comment.body}</p>`; // Fallback to plain text
+      }
+
+      // Create elements for the static parts of the comment
+      const headerHtml = `
+        <div class="flex items-center mb-2">
+          <img src="https://images.hive.blog/u/${comment.author}/avatar" alt="${comment.author}'s avatar" class="w-8 h-8 rounded-full mr-2">
+          <p class="font-semibold">${comment.author}</p>
+        </div>
+        <p class="text-gray-600 text-sm">${new Date(comment.created).toLocaleDateString()}</p>
+      `;
+      commentDiv.insertAdjacentHTML('beforeend', headerHtml);
+
+      // Revert to direct innerHTML for the prose content
+      const markdownContentDiv = document.createElement('div');
+      markdownContentDiv.className = 'mt-2';
+      markdownContentDiv.innerHTML = renderedBody; // Directly insert the parsed HTML
+      commentDiv.appendChild(markdownContentDiv);
+
+      // Create elements for the footer parts of the comment
+      const footerHtml = `
+        <div class="flex items-center mt-3"> 
+          <p class="text-gray-500 text-sm mr-4">Votes: ${votesCount} | HBD Earned: ${hbdEarned}</p>
+          <div class="space-x-2">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-sm">Vote</button>
+            <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 rounded text-sm">Reply</button>
+          </div>
+        </div>
+      `;
+      commentDiv.insertAdjacentHTML('beforeend', footerHtml);
+      
+      container.appendChild(commentDiv);
+
+      if (comment.replies && comment.replies.length > 0) {
+        const repliesContainer = document.createElement('div');
+        repliesContainer.className = 'ml-6 mt-4 border-l-2 border-gray-200 pl-4 space-y-4';
+        commentDiv.appendChild(repliesContainer);
+        comment.replies.forEach(reply => renderComment(reply, repliesContainer));
+      }
+    }
+
+    comments.forEach(comment => renderComment(comment, commentsList));
+  }
+
+  // Modified DOMContentLoaded to use Intersection Observer
+  document.addEventListener('DOMContentLoaded', () => {
+    const commentsSection = document.getElementById('comments-section');
+    if (commentsSection) {
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Comments section is now visible, fetch and render comments
+            const author = commentsSection.dataset.author;
+            const permlink = commentsSection.dataset.permlink;
+
+            console.log("Comments section entered viewport. Fetching comments for:", author, permlink);
+
+            if (author && permlink) {
+              fetchCommentsForPost(author, permlink).then(comments => {
+                renderComments(comments, 'comments-list');
+              });
+            } else {
+              document.getElementById('comments-list').innerHTML = '<p>Error: Post author or permlink not found.</p>';
+            }
+
+            observer.disconnect(); // Stop observing once comments are loaded
+          }
+        });
+      }, { 
+        rootMargin: '0px 0px -100px 0px' // Start loading when 100px from bottom of viewport
+      });
+
+      observer.observe(commentsSection);
+    }
+  });
+</script>

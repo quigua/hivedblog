@@ -1,0 +1,93 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { CollectionEntry, getCollection } from 'astro:content';
+import CommentsSection from '../../components/CommentsSection.astro';
+import PostSidebar from '../../components/PostSidebar.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'posts'>;
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await entry.render();
+
+const match = entry.body.match(/!\[.*?\]\((.*?)\)/);
+const heroImage = match ? match[1] : undefined;
+
+const sevenDaysAgo = new Date();
+sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+const isPendingPayout = entry.data.date.getTime() > sevenDaysAgo.getTime();
+const earningsValue = isPendingPayout ? `${entry.data.pending_hbd?.toFixed(2) || '0.00'} HBD (Pending)` : `${entry.data.total_hbd?.toFixed(2) || '0.00'} HBD (Paid)`;
+
+const sortedVoters = entry.data.active_votes?.sort((a, b) => parseFloat(b.rshares) - parseFloat(a.rshares)) || [];
+
+const significantVoters = sortedVoters.filter(voter => (parseFloat(voter.hbd_value) || 0) >= 0.01);
+const additionalVotesCount = sortedVoters.length - significantVoters.length;
+
+const filteredHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
+
+const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(entry.data.title)}&url=${encodeURIComponent(Astro.url.href)}`;
+const hivePostUrl = `https://peakd.com/@${entry.data.author}/${entry.slug}`;
+---
+
+<Layout 
+  title={entry.data.title}
+  description={entry.data.description}
+  heroImage={heroImage}
+  breadcrumbs={[
+    { label: 'Discover Stories', href: '/discover-stories' },
+    { label: entry.data.category, href: `/discover-stories/category/${entry.data.category.toLowerCase().replace(/ /g, '-')}` },
+    { label: entry.data.title, href: `/discover-stories/${entry.slug}` }
+  ]}
+>
+  <main class="container mx-auto flex flex-col md:flex-row gap-8">
+    <!-- Main Content Area -->
+    <div class="w-full md:w-3/4">
+      <article class="prose lg:prose-xl mx-auto">
+        <h1>{entry.data.title}</h1>
+        <p class="text-gray-600 text-sm">By {entry.data.author} on {entry.data.date.toLocaleDateString()}</p>
+        <Content />
+      </article>
+
+      {/* New section for post details and social links */}
+      <div class="mt-10 p-6 bg-gray-50 rounded-lg shadow-lg">
+        <h3 class="text-2xl font-bold mb-4">Post Engagement</h3>
+        <div class="flex items-center justify-between mb-4">
+          <p class="text-gray-700">Votes: {entry.data.votes || 0} | Earnings: {earningsValue}</p>
+          <div class="space-x-2">
+            <a href={hivePostUrl} target="_blank" rel="noopener noreferrer" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-sm">Vote on Hive</a>
+            <a href={hivePostUrl + '#comments'} target="_blank" rel="noopener noreferrer" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 rounded text-sm">Reply on Hive</a>
+          </div>
+        </div>
+
+        <h4 class="text-xl font-bold mb-2">Share & Subscribe</h4>
+        <div class="flex items-center space-x-4">
+          <a href={twitterShareUrl} target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">Share on Twitter</a>
+          <a href="/rss.xml" class="text-orange-500 hover:underline">RSS Feed</a>
+        </div>
+      </div>
+
+      <CommentsSection author={entry.data.author} permlink={entry.slug} />
+    </div>
+
+    {/* Sidebar */}
+    <div class="w-full md:w-1/4">
+      <PostSidebar
+        entry={entry}
+        earningsValue={earningsValue}
+        significantVoters={significantVoters}
+        additionalVotesCount={additionalVotesCount}
+        headings={filteredHeadings}
+        hivePostUrl={hivePostUrl}
+      />
+    </div>
+  </main>
+</Layout>

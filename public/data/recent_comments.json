@@ -1,0 +1,314 @@
+[
+  {
+    "author": "azircon",
+    "permlink": "re-quigua-t0nlb4",
+    "body": "> In summary, a total of 8,967 unique players\n\nYou can\u2019t sum the unique players in all different mode. There are massive overlaps.\n\nOtherwise excellent collection of data",
+    "created": "2025-08-08T02:23:30",
+    "parent_author": "quigua",
+    "parent_permlink": "splinterstats-unveiling-splinterlands-battle-statistics-the-season-s-report-163",
+    "title": "SplinterStats: Unveiling Splinterlands Battle Statistics. The Season's Report 163",
+    "url": "/posts/splinterstats-unveiling-splinterlands-battle-statistics-the-season-s-report-163/",
+    "votes": 15,
+    "payout_hbd": 0.0,
+    "replies": [
+      {
+        "author": "quigua",
+        "permlink": "t0nr08",
+        "body": "No, the total number of unique players is not the sum of all players in the various formats. If you take another look at the table, you'll see that the sum is much more than 15,000 counts, but the total is 8,967. Players are only counted once at a time, no matter how many battle formats they appear in. The number of players who participated in Season 163 is actually 8,967, according to the battle logs.\nWe currently have approximately 13,700 registered players in our logs since June 3, 2025, which means that about 65% of our active registered players participated in Season 163.\nThanks for stopping by and commenting. By the way, sorry for the initial downvote; my mouse was running out of battery and was doing whatever it wanted.",
+        "created": "2025-08-08T04:26:33",
+        "parent_author": "azircon",
+        "parent_permlink": "re-quigua-t0nlb4",
+        "title": "",
+        "url": "/posts/re-quigua-t0nlb4/",
+        "votes": 1,
+        "payout_hbd": 0.0,
+        "replies": []
+      }
+    ]
+  },
+  {
+    "author": "beelzael",
+    "permlink": "re-quigua-t0ngu0",
+    "body": "Wow, that is SO much data. Thank you for bringing it all together! I'll have to take a closer look at this, but before I do that, there's someone else who might be interested...\n\n@azircon did you see this?",
+    "created": "2025-08-08T00:46:48",
+    "parent_author": "quigua",
+    "parent_permlink": "splinterstats-unveiling-splinterlands-battle-statistics-the-season-s-report-163",
+    "title": "SplinterStats: Unveiling Splinterlands Battle Statistics. The Season's Report 163",
+    "url": "/posts/splinterstats-unveiling-splinterlands-battle-statistics-the-season-s-report-163/",
+    "votes": 1,
+    "payout_hbd": 0.0,
+    "replies": [
+      {
+        "author": "azircon",
+        "permlink": "re-beelzael-t0nkyy",
+        "body": "No I didn\u2019t. Thanks for the tag.",
+        "created": "2025-08-08T02:16:09",
+        "parent_author": "beelzael",
+        "parent_permlink": "re-quigua-t0ngu0",
+        "title": "",
+        "url": "/posts/re-quigua-t0ngu0/",
+        "votes": 15,
+        "payout_hbd": 0.0,
+        "replies": [
+          {
+            "author": "beelzael",
+            "permlink": "re-azircon-t0nluk",
+            "body": "Thanks to @seattlea who pointed this post out in his post. Wouldn't have seen it without him.",
+            "created": "2025-08-08T02:35:09",
+            "parent_author": "azircon",
+            "parent_permlink": "re-beelzael-t0nkyy",
+            "title": "",
+            "url": "/posts/re-beelzael-t0nkyy/",
+            "votes": 0,
+            "payout_hbd": 0.0,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "author": "quigua",
+        "permlink": "t0nrlr",
+        "body": "Yes, there's a huge amount of data and analysis that can be done with battle logs. I'm only building charts and graphs, and I'm not even doing a cursory analysis of that data. Currently, I'm just publishing them with the idea that people will take the data and create their own posts, just as Seattle has done. For now, it's important that people critically analyze what's wrong so we can correct it and draw reliable conclusions about the game's evolution. I hope that very soon players will be able to request the data they want automatically through a comment. \nThank you very much for your comment!",
+        "created": "2025-08-08T04:39:30",
+        "parent_author": "beelzael",
+        "parent_permlink": "re-quigua-t0ngu0",
+        "title": "",
+        "url": "/posts/re-quigua-t0ngu0/",
+        "votes": 1,
+        "payout_hbd": 0.0,
+        "replies": []
+      }
+    ]
+  },
+  {
+    "author": "seattlea",
+    "permlink": "re-quigua-202582t20508394z",
+    "body": ">In the Wild format, most players earn roughly the same, ranging between 60 and 120 SPS, with a median of 100 SPS per season. \n\nThis doesn't sound right, I think these numbers are per DAY?",
+    "created": "2025-08-03T03:50:09",
+    "parent_author": "quigua",
+    "parent_permlink": "splinterstats-unveiling-splinterlands-battle-statistics-the-season-s-report-163",
+    "title": "SplinterStats: Unveiling Splinterlands Battle Statistics. The Season's Report 163",
+    "url": "/posts/splinterstats-unveiling-splinterlands-battle-statistics-the-season-s-report-163/",
+    "votes": 0,
+    "payout_hbd": 0.0,
+    "replies": [
+      {
+        "author": "quigua",
+        "permlink": "t0flxx",
+        "body": "No, those are SPS per season. The graph is constructed from the total sum of SPS a player earns over the course of a season, so the box shows the distribution of earnings over the season. Perhaps the confusing thing is the logarithmic scale, which makes the graph difficult to interpret clearly. One conclusion I draw is that fewer than 25% of Wild players recoup the fee they pay to play in that league in a season.",
+        "created": "2025-08-03T18:56:30",
+        "parent_author": "seattlea",
+        "parent_permlink": "re-quigua-202582t20508394z",
+        "title": "",
+        "url": "/posts/re-quigua-202582t20508394z/",
+        "votes": 2,
+        "payout_hbd": 0.076,
+        "replies": [
+          {
+            "author": "seattlea",
+            "permlink": "re-quigua-202583t12558415z",
+            "body": "I am wondering if there is some bug related to this graph, as in my experience SPS earnings per day in Wild range from 40 to about 140 SPS per day. Here are my SPS earnings in the last 24 hours, I have not claimed them yet:\n![](https://images.ecency.com/DQmYpeGww8djG72mGv2uzzfdLjaHXXG6fZcsn8nAVZd2VyZ/image.png)\n\n",
+            "created": "2025-08-03T19:06:00",
+            "parent_author": "quigua",
+            "parent_permlink": "t0flxx",
+            "title": "",
+            "url": "/posts/t0flxx/",
+            "votes": 1,
+            "payout_hbd": 0.0,
+            "replies": [
+              {
+                "author": "quigua",
+                "permlink": "t0fnri",
+                "body": "I haven't really received much feedback from the community, and I haven't been able to corroborate the scripts' results with reality. It's likely that there are some bugs that weren't detected by testing. Let me run a really detailed analysis of the script now that I have some time, and with your data, I'll try to see if there's a problem or bug causing the erroneous output. I'll let you know what I get later.",
+                "created": "2025-08-03T19:35:42",
+                "parent_author": "seattlea",
+                "parent_permlink": "re-quigua-202583t12558415z",
+                "title": "",
+                "url": "/posts/re-quigua-202583t12558415z/",
+                "votes": 1,
+                "payout_hbd": 0.046,
+                "replies": [
+                  {
+                    "author": "seattlea",
+                    "permlink": "re-quigua-202583t152513133z",
+                    "body": "Well, I will try to promote your posts in my posts and elsewhere and see if we can get a bit more feedback from the community...",
+                    "created": "2025-08-03T22:25:15",
+                    "parent_author": "quigua",
+                    "parent_permlink": "t0fnri",
+                    "title": "",
+                    "url": "/posts/t0fnri/",
+                    "votes": 1,
+                    "payout_hbd": 0.0,
+                    "replies": []
+                  }
+                ]
+              },
+              {
+                "author": "quigua",
+                "permlink": "t0g74h",
+                "body": "Hi there!\n\nI've just completed a thorough review of all the processes running within the service. It looks like it wasn't a bug, but rather an issue with the temporary window for scanning player battles. When I first started developing the service, I set a delay of several seconds between calls to the Splinterlands API to be respectful and avoid overloading the server. Unfortunately, that timing wasn't optimized later on.\n\nAs a result, each player was only being scanned every 24 hours. In many cases, that's just too long, and I believe it caused us to miss some battles. That's probably one of the reasons why our system reported fewer battles than, say, PeakMonsters.\n\nI've already updated those variables, and now each player is scanned approximately every 2 hours. This should prevent battle records from being missed, making the data much more accurate and reliable. Before this change, I was only able to get 2 of your battles, but after the update, the results were much closer to reality:\n\n-------\n\n-- SPS Earnings Report for seattlea (Season 164, Wild Format) ---\nTotal SPS Earned: 103.6200\nSPS Earned per Day:\n  2025-08-01: 13.7940\n  2025-08-03: 89.8260\n\n--- Debug Summary for seattlea (Season 164, Wild Format) ---\nTotal player battles processed (including losses): 48\n  - Ignored due to null JSON: 0\n  - Ignored due to JSON parsing error: 0\n  - Ignored due to 0 SPS (even if won): 0\n------\n\n\nIt's likely that between August 1st and 3rd, many battles weren't recorded. However, this should now be resolved. While the data has always been precise, it wasn't exact, and with this modification, it should start to be. Unfortunately, there's no other way to verify this than by waiting a few days to see how the data evolves.\n\nThank you so much for your support, and we're always here to help. Cheers!",
+                "created": "2025-08-04T02:33:54",
+                "parent_author": "seattlea",
+                "parent_permlink": "re-quigua-202583t12558415z",
+                "title": "",
+                "url": "/posts/re-quigua-202583t12558415z/",
+                "votes": 0,
+                "payout_hbd": 0.0,
+                "replies": [
+                  {
+                    "author": "seattlea",
+                    "permlink": "re-quigua-202585t141633802z",
+                    "body": "Thank you for looking into it, the numbers look much closer to reality now at least for my account. Looking forward to the next set of data after correction! BTW based on my AI detection analysis the other commenter on this post could be an AI bot...",
+                    "created": "2025-08-05T21:16:36",
+                    "parent_author": "quigua",
+                    "parent_permlink": "t0g74h",
+                    "title": "",
+                    "url": "/posts/t0g74h/",
+                    "votes": 0,
+                    "payout_hbd": 0.0,
+                    "replies": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "author": "seattlea",
+    "permlink": "re-quigua-202581t223828687z",
+    "body": "This is a goldmine of data! I will have to dig into this tomorrow.",
+    "created": "2025-08-02T05:38:30",
+    "parent_author": "quigua",
+    "parent_permlink": "splinterstats-unveiling-splinterlands-battle-statistics-the-season-s-report-163",
+    "title": "SplinterStats: Unveiling Splinterlands Battle Statistics. The Season's Report 163",
+    "url": "/posts/splinterstats-unveiling-splinterlands-battle-statistics-the-season-s-report-163/",
+    "votes": 1,
+    "payout_hbd": 0.0,
+    "replies": [
+      {
+        "author": "quigua",
+        "permlink": "t0dh8q",
+        "body": "I loved the box plot results; they're truly revealing. The fact that 75% of Modern players earn less than 60 SPS in battles per month, and that 50% only earn an average of 8 SPS, surprised me. Of course, most Modern accounts don't seem to have a competitive deck.",
+        "created": "2025-08-02T15:19:39",
+        "parent_author": "seattlea",
+        "parent_permlink": "re-quigua-202581t223828687z",
+        "title": "",
+        "url": "/posts/re-quigua-202581t223828687z/",
+        "votes": 1,
+        "payout_hbd": 0.02,
+        "replies": [
+          {
+            "author": "seattlea",
+            "permlink": "re-quigua-202582t194934273z",
+            "body": "Means that 75% of the modern players are probably playing with a level 1 cards... 60 SPS / 400 battles per season = 0.15 SPS per battle...",
+            "created": "2025-08-03T02:49:36",
+            "parent_author": "quigua",
+            "parent_permlink": "t0dh8q",
+            "title": "",
+            "url": "/posts/t0dh8q/",
+            "votes": 0,
+            "payout_hbd": 0.0,
+            "replies": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "author": "hivebuzz",
+    "permlink": "notify-1754100763",
+    "body": "Congratulations @quigua! You have completed the following achievement on the Hive blockchain And have been rewarded with New badge(s)\n\n<table><tr><td><img src=\"https://images.hive.blog/60x70/https://hivebuzz.me/@quigua/payout.png?202508020204\"></td><td>You received more than 250 HP as payout for your posts, comments and curation.<br>Your next payout target is 500 HP.<br><sub>The unit is Hive Power equivalent because post and comment rewards can be split into HP and HBD</sub></td></tr>\n</table>\n\n<sub>_You can view your badges on [your board](https://hivebuzz.me/@quigua) and compare yourself to others in the [Ranking](https://hivebuzz.me/ranking)_</sub>\n<sub>_If you no longer want to receive notifications, reply to this comment with the word_ `STOP`</sub>\n\n\n\n**Check out our last posts:**\n<table><tr><td><a href=\"/hive-122221/@hivebuzz/pum-202507-result\"><img src=\"https://images.hive.blog/64x128/https://i.imgur.com/mzwqdSL.png\"></a></td><td><a href=\"/hive-122221/@hivebuzz/pum-202507-result\">Hive Power Up Month Challenge - July 2025 Winners List</a></td></tr><tr><td><a href=\"/hive-122221/@hivebuzz/pum-202508\"><img src=\"https://images.hive.blog/64x128/https://i.imgur.com/M9RD8KS.png\"></a></td><td><a href=\"/hive-122221/@hivebuzz/pum-202508\">Be ready for the August edition of the Hive Power Up Month!</a></td></tr><tr><td><a href=\"/hive-122221/@hivebuzz/pud-202508\"><img src=\"https://images.hive.blog/64x128/https://i.imgur.com/805FIIt.jpg\"></a></td><td><a href=\"/hive-122221/@hivebuzz/pud-202508\">Hive Power Up Day - August 1st 2025</a></td></tr></table>",
+    "created": "2025-08-02T02:12:42",
+    "parent_author": "quigua",
+    "parent_permlink": "splinterstats-unveiling-splinterlands-battle-statistics-the-season-s-report-163",
+    "title": "SplinterStats: Unveiling Splinterlands Battle Statistics. The Season's Report 163",
+    "url": "/posts/splinterstats-unveiling-splinterlands-battle-statistics-the-season-s-report-163/",
+    "votes": 0,
+    "payout_hbd": 0.0,
+    "replies": []
+  },
+  {
+    "author": "bhr-curation",
+    "permlink": "splinterstats-unveiling-splinterlands-battle-statistics-the-season-s-report-163-1754099764816",
+    "body": "238k battles in S163! \ud83d\udd25 SplinterStats keeps us informed. Useful for strategies!",
+    "created": "2025-08-02T01:56:06",
+    "parent_author": "quigua",
+    "parent_permlink": "splinterstats-unveiling-splinterlands-battle-statistics-the-season-s-report-163",
+    "title": "SplinterStats: Unveiling Splinterlands Battle Statistics. The Season's Report 163",
+    "url": "/posts/splinterstats-unveiling-splinterlands-battle-statistics-the-season-s-report-163/",
+    "votes": 0,
+    "payout_hbd": 0.0,
+    "replies": [
+      {
+        "author": "quigua",
+        "permlink": "t0dgv3",
+        "body": "Yes, 238K is a lot of information, and I'm eager to get the most out of it. Do you have any ideas about what information would be interesting to extract that would help you most with your game strategy? Greetings, and thanks for commenting.",
+        "created": "2025-08-02T15:11:36",
+        "parent_author": "bhr-curation",
+        "parent_permlink": "splinterstats-unveiling-splinterlands-battle-statistics-the-season-s-report-163-1754099764816",
+        "title": "",
+        "url": "/posts/splinterstats-unveiling-splinterlands-battle-statistics-the-season-s-report-163-1754099764816/",
+        "votes": 1,
+        "payout_hbd": 0.0,
+        "replies": []
+      }
+    ]
+  },
+  {
+    "author": "splinterboost",
+    "permlink": "splinterstats-unveiling-splinterlands-battle-statistics-the-season-s-report-163",
+    "body": " <center> This post has been supported by @Splinterboost with a 12% upvote! Delagate HP to Splinterboost to Earn Daily HIVE rewards for supporting the @Splinterlands community!</center> \n\n <center> [ Delegate HP ](https://peakd.com/@splinterboost)  | [Join Discord](https://discord.gg/RK4ZHKmgcX) </center>",
+    "created": "2025-08-02T01:53:30",
+    "parent_author": "quigua",
+    "parent_permlink": "splinterstats-unveiling-splinterlands-battle-statistics-the-season-s-report-163",
+    "title": "SplinterStats: Unveiling Splinterlands Battle Statistics. The Season's Report 163",
+    "url": "/posts/splinterstats-unveiling-splinterlands-battle-statistics-the-season-s-report-163/",
+    "votes": 0,
+    "payout_hbd": 0.0,
+    "replies": []
+  },
+  {
+    "author": "unitmaster",
+    "permlink": "re-quigua-t0a722",
+    "body": "This is interesting to see. I've always wondered how many different active players Splinterlands has each season. 12,505 is a lot more than I expected. Thanks for you work and sharing this data.",
+    "created": "2025-07-31T20:46:51",
+    "parent_author": "quigua",
+    "parent_permlink": "how-many-players-did-splinterlands-have-in-season-162",
+    "title": "How many players did Splinterlands have in Season 162?",
+    "url": "/posts/how-many-players-did-splinterlands-have-in-season-162/",
+    "votes": 0,
+    "payout_hbd": 0.0,
+    "replies": [
+      {
+        "author": "quigua",
+        "permlink": "t0alj2",
+        "body": "Hi @unitmaster. Nice to greet you. Yes, I was also surprised to see so many active accounts, but after thinking about it carefully, I realized that doesn't correspond to the actual number of players, because some players have multiple accounts. To know how many players there really are in Splinterlands, we'd need to identify which accounts belong to the same player, and that's not so easy to determine, though I don't think it's impossible. At least now we know how many accounts are being played, which is a step in that direction. Regards and thank you very much for your comment.",
+        "created": "2025-08-01T01:59:27",
+        "parent_author": "unitmaster",
+        "parent_permlink": "re-quigua-t0a722",
+        "title": "",
+        "url": "/posts/re-quigua-t0a722/",
+        "votes": 1,
+        "payout_hbd": 0.0,
+        "replies": [
+          {
+            "author": "unitmaster",
+            "permlink": "re-quigua-t0bkks",
+            "body": "That's true, but at least this is a starting point to work from!",
+            "created": "2025-08-01T14:36:27",
+            "parent_author": "quigua",
+            "parent_permlink": "t0alj2",
+            "title": "",
+            "url": "/posts/t0alj2/",
+            "votes": 0,
+            "payout_hbd": 0.0,
+            "replies": []
+          }
+        ]
+      }
+    ]
+  }
+]

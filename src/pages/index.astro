@@ -1,11 +1,94 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Quigua - Your Hive Blog & Splinterlands">
+    <main>
+        <!-- Hero Section -->
+        <section id="hero-section" class="relative w-full text-white py-20 overflow-hidden bg-cover bg-[center_top_35%]">
+            <div class="absolute inset-0 bg-gradient-to-r from-black to-transparent z-0"></div>
+            <div class="relative container mx-auto flex items-center z-10">
+                <div class="w-full md:w-1/2 text-center md:text-left p-4">
+                    <h1 class="text-5xl font-bold mb-3">Enter the World of Splinterlands</h1>
+                    <p class="text-xl mb-4">The revolutionary blockchain-based trading card game.</p>
+                    <a href="https://splinterlands.com/register?ref=quigua" class="bg-white text-black font-bold py-3 px-6 rounded-lg">Play Now for Free</a>
+                </div>
+                <div class="hidden md:block w-1/2 h-96">
+                    <!-- Background image will be applied via CSS to this column -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Title -->
+        <section class="container mx-auto py-10">
+            <h2 class="text-center text-3xl font-bold mb-10">Hived Blogs: Your Universe of Decentralized Content and Blockchain Adventures.</h2>
+        </section>
+
+        <!-- Postcards Section -->
+        <section class="container mx-auto py-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <a href="/splinterlands" class="block bg-white rounded-lg shadow-lg p-8 transform transition duration-300 hover:scale-105 hover:bg-gray-100">
+                    <h3 class="text-2xl font-bold mb-4">Master Splinterlands</h3>
+                    <p class="text-gray-600">Guides, Tools, and Strategies for Victory.</p>
+                </a>
+                <a href="/hive" class="block bg-white rounded-lg shadow-lg p-8 transform transition duration-300 hover:scale-105 hover:bg-gray-100">
+                    <h3 class="text-2xl font-bold mb-4">Explore Hive</h3>
+                    <p class="text-gray-600">Your Gateway to Decentralized Blockchain, Content, and Community.</p>
+                </a>
+                <a href="/discover-stories" class="block bg-white rounded-lg shadow-lg p-8 transform transition duration-300 hover:scale-105 hover:bg-gray-100">
+                    <h3 class="text-2xl font-bold mb-4">Discover, Learn, Inspire</h3>
+                    <p class="text-gray-600">Stories, Analysis, and More for Your Daily Life.</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- "Your Hive Blog" Section -->
+        <section id="hive-service" class="container mx-auto py-20">
+            <h2 class="text-center text-3xl font-bold mb-10">Why Create Your Own Blog on Hive?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h5 class="text-xl font-bold mb-2">Monetize Your Content</h5>
+                    <p class="text-gray-600">Earn cryptocurrencies for your posts and engagement.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h5 class="text-xl font-bold mb-2">Total Ownership</h5>
+                    <p class="text-gray-600">Your data and content are yours, without censorship or intermediaries.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h5 class="text-xl font-bold mb-2">Active Community</h5>
+                    <p class="text-gray-600">Connect with other passionate creators and readers.</p>
+                </div>
+            </div>
+            <div class="text-center mt-10">
+                <a href="https://signup.hive.io/" class="bg-blue-500 text-white font-bold py-3 px-6 rounded-lg" target="_blank" rel="noopener noreferrer">Start Blogging on Hive</a>
+            </div>
+        </section>
+
+        <!-- "About Me" Section (Placeholder) -->
+        <section class="container mx-auto py-20">
+            <h2 class="text-center text-3xl font-bold mb-10">About Me and My Experience</h2>
+            <div class="flex justify-center">
+                <div class="w-full md:w-2/3 text-center">
+                    <p class="text-xl">I am a blockchain technology and content creation enthusiast. My mission is to help you navigate the Hive ecosystem and discover opportunities like Splinterlands.</p>
+                    <p class="mt-4">With years of experience in the decentralized space, I offer you the knowledge and tools to make your voice heard and your time rewarded.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-8 text-center">
+            <p>&copy; 2025 Quigua. All rights reserved.</p>
+            <p><a href="#" class="text-white">Privacy Policy</a> | <a href="#" class="text-white">Terms of Service</a></p>
+        </footer>
+    </main>
+    <script is:inline>
+        const heroSection = document.querySelector('#hero-section');
+        const imageNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // Example: splinterlands_1.jpg, splinterlands_2.jpg, splinterlands_3.jpg
+        const randomIndex = Math.floor(Math.random() * imageNumbers.length);
+        const selectedImageNumber = imageNumbers[randomIndex];
+        const selectedImage = `/images/splinterlands_${selectedImageNumber}.jpg`;
+
+        heroSection.style.backgroundImage = `url('${selectedImage}')`;
+    </script>
+
 </Layout>

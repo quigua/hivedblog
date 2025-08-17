@@ -1,22 +1,67 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+export interface Props {
+	title: string;
+	description: string;
+	heroImage?: string;
+	breadcrumbs?: { label: string; href: string }[];
+}
+
+const { title, description, heroImage, breadcrumbs } = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href="/images/hived-blogs-favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{title}</title>
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="article">
+		<meta property="og:url" content={Astro.url.href}>
+		<meta property="og:title" content={title}>
+		<meta property="og:description" content={description}>
+		{heroImage && <meta property="og:image" content={new URL(heroImage, Astro.url).href} />}
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image">
+		<meta property="twitter:url" content={Astro.url.href}>
+		<meta property="twitter:title" content={title}>
+		<meta property="twitter:description" content={description}>
+		{heroImage && <meta property="twitter:image" content={new URL(heroImage, Astro.url).href} />}
+
+		<script defer src="https://cdn.jsdelivr.net/npm/marked@16.1.2/lib/marked.umd.min.js"></script>
 	</head>
 	<body>
+		<Header />
+		{breadcrumbs && <Breadcrumbs segments={breadcrumbs} />}
+		
 		<slot />
+
+		<script>
+			function adjustMainPadding() {
+				const header = document.querySelector('header');
+				const breadcrumbs = document.querySelector('nav[aria-label="breadcrumb"]');
+				const main = document.querySelector('main');
+
+				if (header && main) {
+					let totalOffset = header.offsetHeight;
+					if (breadcrumbs) {
+						totalOffset += breadcrumbs.offsetHeight;
+					}
+					main.style.paddingTop = `${totalOffset}px`;
+				}
+			}
+
+			document.addEventListener('DOMContentLoaded', adjustMainPadding);
+			window.addEventListener('resize', adjustMainPadding);
+		</script>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Quigua - Our Plans">
+    <main class="mt-16 container mx-auto py-20">
+        <h1 class="text-center text-3xl font-bold mb-10">Choose Your Plan</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Free Plan Card -->
+            <div class="bg-white rounded-lg shadow-lg">
+                <div class="bg-blue-500 text-white text-center py-4 rounded-t-lg">
+                    <h4 class="text-xl font-bold">Free</h4>
+                </div>
+                <div class="p-8">
+                    <h1 class="text-5xl font-bold text-center">$0<span class="text-lg font-normal">/mo</span></h1>
+                    <ul class="mt-4 mb-8">
+                        <li>10 Hive blockchain features</li>
+                        <li>Feature 2</li>
+                        <li>Feature 3</li>
+                        <li>Feature 4</li>
+                        <li>Feature 5</li>
+                        <li>Feature 6</li>
+                        <li>Feature 7</li>
+                        <li>Feature 8</li>
+                        <li>Feature 9</li>
+                        <li>Feature 10</li>
+                    </ul>
+                    <button type="button" class="w-full bg-blue-500 text-white font-bold py-3 px-6 rounded-lg">Sign up for free</button>
+                </div>
+            </div>
+
+            <!-- One-Time Payment Plan Card -->
+            <div class="bg-white rounded-lg shadow-lg">
+                <div class="bg-green-500 text-white text-center py-4 rounded-t-lg">
+                    <h4 class="text-xl font-bold">One-Time Payment</h4>
+                </div>
+                <div class="p-8">
+                    <h1 class="text-5xl font-bold text-center">$10</h1>
+                    <ul class="mt-4 mb-8">
+                        <li>All Free features</li>
+                        <li>Basic consulting</li>
+                        <li>Limited HP delegation</li>
+                        <li>Basic support tools</li>
+                    </ul>
+                    <button type="button" class="w-full bg-green-500 text-white font-bold py-3 px-6 rounded-lg">Get started</button>
+                </div>
+            </div>
+
+            <!-- Premium Plan Card -->
+            <div class="bg-white rounded-lg shadow-lg">
+                <div class="bg-purple-500 text-white text-center py-4 rounded-t-lg">
+                    <h4 class="text-xl font-bold">Premium</h4>
+                </div>
+                <div class="p-8">
+                    <h1 class="text-5xl font-bold text-center">$100<span class="text-lg font-normal">/yr</span></h1>
+                    <ul class="mt-4 mb-8">
+                        <li>All previous features</li>
+                        <li>Personalized blog</li>
+                        <li>Custom domain</li>
+                        <li>Advanced support tools</li>
+                    </ul>
+                    <button type="button" class="w-full bg-purple-500 text-white font-bold py-3 px-6 rounded-lg">Contact us</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</Layout>
+
+

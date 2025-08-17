@@ -1,0 +1,108 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+
+const categories = [...new Set(posts.map(post => post.data.category).filter(Boolean))];
+---
+
+<Layout title="Quigua - Discover Stories" breadcrumbs={[{ label: 'Discover Stories', href: '/discover-stories' }]}>
+  <Header />
+  <main>
+    <!-- Hero Section -->
+    <section id="hero-section" class="relative w-full text-white py-20 overflow-hidden bg-cover bg-[center_top_35%]">
+      <div class="absolute inset-0 bg-gradient-to-r from-black to-transparent z-0"></div>
+      <div class="relative container mx-auto flex items-center z-10">
+        <div class="w-full md:w-1/2 text-center md:text-left p-4">
+          <h1 class="text-5xl font-bold mb-3">Discover, Learn, Inspire</h1>
+          <p class="text-xl mb-4">Stories, Analysis, and More for Your Daily Life.</p>
+        </div>
+        <div class="hidden md:block w-1/2 h-96">
+          <!-- Background image will be applied via CSS to this column -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content with Sidebar -->
+    <section class="container mx-auto py-10 flex flex-col md:flex-row gap-8">
+      <!-- Main Content Area -->
+      <div class="w-full md:w-3/4">
+        <h2 class="text-3xl font-bold mb-6">Recent Stories</h2>
+        <div class="grid grid-cols-1 gap-6">
+          {
+            posts.map((post) => {
+              const sevenDaysAgo = new Date();
+              sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+              const isPendingPayout = post.data.date.getTime() > sevenDaysAgo.getTime();
+              const hbdValue = isPendingPayout ? `Pending` : `${post.data.total_hbd?.toFixed(2) || '0.00'} HBD`;
+
+              let imageUrl = post.data.image;
+              if (!imageUrl) {
+                const match = post.body.match(/!\[.*\]\((.*)\)/);
+                if (match) {
+                  imageUrl = match[1];
+                }
+              }
+              const description = post.data.description.replace(/!\[.*?\]\(.*?\)/g, '').trim();
+
+              return (
+                <a href={`/discover-stories/${post.slug}`} class="block bg-white rounded-lg shadow-lg p-6 transform transition duration-300 hover:scale-105 hover:bg-gray-100">
+                  <div class="flex items-start gap-4">
+                    {imageUrl && (
+                      <img src={imageUrl} alt={post.data.title} class="w-24 h-24 object-cover rounded-lg" />
+                    )}
+                    <div class="flex-1">
+                      <h3 class="text-xl font-bold mb-2">{post.data.title}</h3>
+                      <p class="text-gray-600 text-sm">By {post.data.author} on {post.data.date.toLocaleDateString()}</p>
+                      <p class="text-gray-700 mt-2">{description}</p>
+                    </div>
+                  </div>
+                  <div class="flex justify-between items-center text-sm text-gray-500 mt-4 pt-4 border-t border-gray-200">
+                    <div class="flex items-center space-x-1">
+                      <svg class="h-4 w-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>
+                      <span class="font-semibold text-gray-800">{post.data.votes || 0}</span>
+                      <span class="text-xs text-gray-500">Votes</span>
+                    </div>
+                    <div class="flex items-center space-x-1">
+                      <svg class="h-4 w-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 3v-3H4a2 2 0 01-2-2V5z"></path></svg>
+                      <span class="font-semibold text-gray-800">{post.data.comments || 0}</span>
+                      <span class="text-xs text-gray-500">Comments</span>
+                    </div>
+                    <div class="flex items-center space-x-1">
+                      <svg class="h-4 w-4 text-green-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path></svg>
+                      <span class="font-semibold text-green-600">{hbdValue}</span>
+                    </div>
+                  </div>
+                </a>
+              );
+            })
+          }
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="w-full md:w-1/4 bg-gray-50 rounded-lg shadow-lg p-6 sticky top-24 self-start">
+        <h3 class="text-2xl font-bold mb-4">Categories</h3>
+        <ul>
+          {categories.map(category => (
+            <li class="mb-2"><a href={`/discover-stories/category/${category.toLowerCase().replace(/ /g, '-')}`} class="text-blue-600 hover:underline">{category}</a></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script is:inline>
+  const heroSection = document.querySelector('#hero-section');
+  const imageNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const randomIndex = Math.floor(Math.random() * imageNumbers.length);
+  const selectedImageNumber = imageNumbers[randomIndex];
+  const selectedImage = `/images/splinterlands_${selectedImageNumber}.jpg`; // Placeholder
+
+  heroSection.style.backgroundImage = `url('${selectedImage}')`;
+</script>

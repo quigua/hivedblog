@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+article h2,
+article h3 {
+  scroll-margin-top: 8rem;
+}

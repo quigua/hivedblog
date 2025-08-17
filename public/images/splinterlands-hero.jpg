@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><base href="/">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Splinterlands - Collect, Trade, Battle!</title>
+    <link rel="icon" type="image/png" href="https://d36mxiodymuqjm.cloudfront.net/website/icons/img_icon_splinterlands_32.png" />
+    <script src="config.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
+	<!-- Start of splinterlands Zendesk Widget script -->
+	<script>
+	if (!(window.innerWidth <= 800) && !(window.innerHeight <= 600)) {
+			var script = document.createElement('script');
+			script.setAttribute('id',"ze-snippet");
+			script.setAttribute('src','https://static.zdassets.com/ekr/snippet.js?key=f388b734-ab67-4656-8db2-fe960f32cf35');
+			document.head.appendChild(script);
+	 }
+	</script>
+	 <!-- End of splinterlands Zendesk Widget script -->	  
+	  <script>
+		if (window.config.ENVIRONMENT !== 'sl-prod') {
+		console.log("%c************ In Test Mode ************", );
+	    window.addEventListener('DOMContentLoaded', (event) => {
+		let body = document.querySelector('body');
+		body.insertAdjacentHTML('beforeend', '<div class="test_mode_sign" style="position: fixed; background-color: #009741; bottom: 10px; left: 10px; pointer-events: none; user-select: none; color: white; font-size: 20px; width: 250px; text-align: center; animation: test_mode_fadeout 500ms ease-in 4s 1 forwards;">*** TEST MODE ON ***</div>');
+		});
+		}
+	  </script>
+  </head>
+  <body>
+    <div id="root"></div>
+  <script src="runtime.cf44ecf02271676c.esm.js" type="module"></script><script src="polyfills.14ef12509dd5539c.esm.js" type="module"></script><script src="main.2fcd248e38f206cf.esm.js" type="module"></script></body>
+</html>

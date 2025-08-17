@@ -1,24 +1,25 @@
-# build output
-dist/
+# Node.js
+node_modules/
+package-lock.json
 
-# generated types
+# Astro
 .astro/
 
-# dependencies
-node_modules/
+# VS Code
+.vscode/
 
-# logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+# Logs
+log.md
+GEMINI_WORK_LOG.md
 
-# environment variables
+# Python
+__pycache__/
+*.pyc
+*.log
+*.py
+
+# Build artifacts
+dist/
+
+# Environment variables
 .env
-.env.production
-
-# macOS-specific files
-.DS_Store
-
-# jetbrains setting folder
-.idea/

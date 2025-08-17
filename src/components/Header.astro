@@ -1,0 +1,22 @@
+---
+const username = import.meta.env.HIVE_USERNAME;
+const avatarUrl = `https://images.hive.blog/u/${username}/avatar`;
+---
+
+<header class="fixed top-0 left-0 w-full bg-gray-800 text-white p-4 flex justify-between items-center z-50">
+  <div class="flex items-center">
+    <a href="/" class="flex items-center">
+      <img src="/images/hived-blogs-logo.svg" alt="Quigua Logo" class="h-8 w-8 mr-2">
+      <span class="text-xl font-bold">Quigua's Hived blog</span>
+    </a>
+  </div>
+  <nav class="hidden md:flex space-x-4">
+    <a href="/" class="hover:text-gray-400">Home</a>
+    <a href="/splinterlands" class="hover:text-gray-400">Splinterlands</a>
+    <a href="/hive" class="hover:text-gray-400">Hive</a>
+    <a href="/discover-stories" class="hover:text-gray-400">Discover Stories</a>
+  </nav>
+  <div class="flex items-center">
+    <img src={avatarUrl} alt="User Avatar" class="h-8 w-8 rounded-full">
+  </div>
+</header>
