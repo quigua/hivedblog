@@ -52,10 +52,55 @@ const { entry, earningsValue, significantVoters, additionalVotesCount, headings,
   <div class="bg-white p-4 rounded-lg sticky top-32">
     {/* CTA Button */}
     <div class="mb-6">
-      <a href={hivePostUrl} target="_blank" rel="noopener noreferrer" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center block">
+      <button id="vote-button" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center block" data-author={entry.data.author} data-permlink={entry.slug}>
         Vote for this post
-      </a>
+      </button>
     </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const voteButton = document.getElementById('vote-button');
+
+    voteButton.addEventListener('click', () => {
+      if (typeof window.hive_keychain === 'undefined') {
+        alert('Please install the Hive Keychain extension.');
+        return;
+      }
+
+      const author = voteButton.dataset.author;
+      const permlink = voteButton.dataset.permlink;
+      const weight = 10000; // 100% vote weight
+
+      window.hive_keychain.requestSignBuffer(
+        null, // Let Keychain prompt for the user
+        'Sign to vote for this post',
+        'Posting',
+        (response) => {
+          if (!response.success) {
+            alert('Keychain signing failed: ' + response.message);
+            return;
+          }
+
+          const username = response.data.username;
+
+          window.hive_keychain.requestVote(
+            username,
+            permlink,
+            author,
+            weight,
+            (voteResponse) => {
+              if (voteResponse.success) {
+                alert('Vote successful!');
+              } else {
+                alert('Vote failed: ' + (voteResponse.message || 'Unknown error'));
+              }
+            }
+          );
+        }
+      );
+    });
+  });
+</script>
     <h4 class="text-xl font-bold mb-2">Table of Contents</h4>
     <nav>
       <ul class="list-none p-0 m-0">

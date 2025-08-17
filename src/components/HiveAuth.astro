@@ -1,0 +1,153 @@
+---
+import { isKeychainAvailable, requestKeychainLogin, requestKeychainVote } from '../../public/js/keychain.js';
+---
+
+<div class="hive-auth-container">
+  <h2>Hive Keychain Integration</h2>
+  <p id="keychain-status"></p>
+
+  <div class="auth-section">
+    <h3>Authentication</h3>
+    <input type="text" id="auth-username" placeholder="Your Hive Username" value="quigua" />
+    <button id="login-button">Login with Keychain</button>
+    <p id="login-status"></p>
+  </div>
+
+  <div class="vote-section">
+    <h3>Voting</h3>
+    <input type="text" id="vote-username" placeholder="Your Hive Username" value="quigua" />
+    <input type="text" id="vote-author" placeholder="Post Author" value="quigua" />
+    <input type="text" id="vote-permlink" placeholder="Post Permlink" value="test-post-permlink" />
+    <input type="number" id="vote-weight" placeholder="Vote Weight (0-10000)" value="10000" />
+    <button id="vote-button">Vote with Keychain</button>
+    <p id="vote-status"></p>
+  </div>
+</div>
+
+<style>
+  .hive-auth-container {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    font-family: sans-serif;
+  }
+  .hive-auth-container h2, .hive-auth-container h3 {
+    color: #333;
+  }
+  .hive-auth-container input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  .hive-auth-container button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  .hive-auth-container button:hover {
+    background-color: #0056b3;
+  }
+  .hive-auth-container p {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #555;
+  }
+  .auth-section, .vote-section {
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+    margin-top: 15px;
+  }
+</style>
+
+<script type="module">
+  import { isKeychainAvailable, requestKeychainLogin, requestKeychainVote } from '../../public/js/keychain.js';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const keychainStatus = document.getElementById('keychain-status');
+    const loginButton = document.getElementById('login-button');
+    const authUsernameInput = document.getElementById('auth-username');
+    const loginStatus = document.getElementById('login-status');
+
+    const voteButton = document.getElementById('vote-button');
+    const voteUsernameInput = document.getElementById('vote-username');
+    const voteAuthorInput = document.getElementById('vote-author');
+    const votePermlinkInput = document.getElementById('vote-permlink');
+    const voteWeightInput = document.getElementById('vote-weight');
+    const voteStatus = document.getElementById('vote-status');
+
+    // Check Keychain availability on load with a slight delay
+    function checkAndEnableKeychain() {
+      if (typeof window !== 'undefined' && window.hive_keychain) {
+        keychainStatus.textContent = 'Hive Keychain is available!';
+        keychainStatus.style.color = 'green';
+        loginButton.disabled = false;
+        voteButton.disabled = false;
+      } else {
+        keychainStatus.textContent = 'Hive Keychain is NOT available. Please install the extension.';
+        keychainStatus.style.color = 'red';
+        loginButton.disabled = true;
+        voteButton.disabled = true;
+        // Retry after a short delay if not found immediately
+        setTimeout(checkAndEnableKeychain, 500);
+      }
+    }
+    checkAndEnableKeychain(); // Initial check
+
+    // Login functionality
+    loginButton.addEventListener('click', async () => {
+      const username = authUsernameInput.value;
+      if (!username) {
+        loginStatus.textContent = 'Please enter a Hive username.';
+        loginStatus.style.color = 'orange';
+        return;
+      }
+      loginStatus.textContent = 'Requesting login...';
+      loginStatus.style.color = '#555';
+
+      try {
+        const response = await requestKeychainLogin(username, 'Login to Quigua Site', 'Posting');
+        loginStatus.textContent = `Login successful for ${response.result.username}!`;
+        loginStatus.style.color = 'green';
+        console.log('Login response:', response);
+      } catch (error) {
+        loginStatus.textContent = `Login failed: ${error.message}`;
+        loginStatus.style.color = 'red';
+        console.error('Login error:', error);
+      }
+    });
+
+    // Voting functionality
+    voteButton.addEventListener('click', async () => {
+      const username = voteUsernameInput.value;
+      const author = voteAuthorInput.value;
+      const permlink = votePermlinkInput.value;
+      const weight = parseInt(voteWeightInput.value, 10);
+
+      if (!username || !author || !permlink || isNaN(weight)) {
+        voteStatus.textContent = 'Please fill all voting fields correctly.';
+        voteStatus.style.color = 'orange';
+        return;
+      }
+      voteStatus.textContent = 'Requesting vote...';
+      voteStatus.style.color = '#555';
+
+      try {
+        const response = await requestKeychainVote(username, permlink, author, weight);
+        voteStatus.textContent = `Vote successful! Transaction ID: ${response.result.id}`; 
+        voteStatus.style.color = 'green';
+        console.log('Vote response:', response);
+      } catch (error) {
+        voteStatus.textContent = `Vote failed: ${error.message}`; 
+        voteStatus.style.color = 'red';
+        console.error('Vote error:', error);
+      }
+    });
+  });
+</script>
