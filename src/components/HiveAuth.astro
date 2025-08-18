@@ -1,5 +1,5 @@
 ---
-import { isKeychainAvailable, requestKeychainLogin, requestKeychainVote } from '../../public/js/keychain.js';
+import { isKeychainAvailable, requestKeychainLogin, requestKeychainVote } from '/js/keychain.js';
 ---
 
 <div class="hive-auth-container">
@@ -67,7 +67,7 @@ import { isKeychainAvailable, requestKeychainLogin, requestKeychainVote } from '
 </style>
 
 <script type="module">
-  import { isKeychainAvailable, requestKeychainLogin, requestKeychainVote } from '../../public/js/keychain.js';
+  import { isKeychainAvailable, requestKeychainLogin, requestKeychainVote } from '/js/keychain.js';
 
   document.addEventListener('DOMContentLoaded', () => {
     const keychainStatus = document.getElementById('keychain-status');

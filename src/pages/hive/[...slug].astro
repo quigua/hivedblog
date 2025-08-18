@@ -47,6 +47,7 @@ const hivePostUrl = `https://peakd.com/@${entry.data.author}/${entry.slug}`;
     { label: entry.data.category, href: `/hive/category/${entry.data.category.toLowerCase().replace(/ /g, '-')}` },
     { label: entry.data.title, href: `/hive/${entry.slug}` }
   ]}
+  activeCategorySlug={entry.data.category.toLowerCase().replace(/ /g, '-')}
 >
   <main class="container mx-auto flex flex-col md:flex-row gap-8">
     <!-- Main Content Area -->

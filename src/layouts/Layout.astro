@@ -2,15 +2,33 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
 
 export interface Props {
 	title: string;
 	description: string;
 	heroImage?: string;
-	breadcrumbs?: { label: string; href: string }[];
+	breadcrumbs?: { label:string; href: string }[];
+  activeCategorySlug?: string;
 }
 
-const { title, description, heroImage, breadcrumbs } = Astro.props;
+const { 
+  title, 
+  description, 
+  heroImage, 
+  breadcrumbs, 
+  activeCategorySlug = ''
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+
+const allSplinterlandsPosts = await getCollection('splinterlands');
+const allHivePosts = await getCollection('hive');
+const allDiscoverStoriesPosts = await getCollection('posts');
+
+const splinterlandsCategories = [...new Set(allSplinterlandsPosts.map(post => post.data.category).filter(Boolean))];
+const hiveCategories = [...new Set(allHivePosts.map(post => post.data.category).filter(Boolean))];
+const discoverStoriesCategories = [...new Set(allDiscoverStoriesPosts.map(post => post.data.category).filter(Boolean))];
 ---
 
 <!doctype html>
@@ -40,7 +58,7 @@ const { title, description, heroImage, breadcrumbs } = Astro.props;
 		<script defer src="https://cdn.jsdelivr.net/npm/marked@16.1.2/lib/marked.umd.min.js"></script>
 	</head>
 	<body>
-		<Header />
+		<Header splinterlandsCategories={splinterlandsCategories} hiveCategories={hiveCategories} discoverStoriesCategories={discoverStoriesCategories} currentPath={currentPath} activeCategorySlug={activeCategorySlug} />
 		{breadcrumbs && <Breadcrumbs segments={breadcrumbs} />}
 		
 		<slot />
@@ -63,5 +81,40 @@ const { title, description, heroImage, breadcrumbs } = Astro.props;
 			document.addEventListener('DOMContentLoaded', adjustMainPadding);
 			window.addEventListener('resize', adjustMainPadding);
 		</script>
+		<script is:inline>
+  // This script uses event delegation to ensure the hamburger menu works reliably.
+
+  // Function to toggle the menu's visibility and store its state
+  function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu) {
+      const isHidden = mobileMenu.classList.toggle('hidden');
+      sessionStorage.setItem('isMenuOpen', !isHidden);
+    }
+  }
+
+  // Restore menu state on initial page load
+  // This runs only once when the script is first parsed
+  const initialMobileMenu = document.getElementById('mobile-menu');
+  if (initialMobileMenu && sessionStorage.getItem('isMenuOpen') === 'true') {
+    initialMobileMenu.classList.remove('hidden');
+  }
+
+  // Listen for clicks on the whole document using event delegation
+  document.addEventListener('click', (event) => {
+    const hamburgerButton = document.getElementById('hamburger-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    // If the click was on the hamburger button or inside it
+    if (hamburgerButton && hamburgerButton.contains(event.target)) {
+      toggleMobileMenu();
+    } 
+    // If the menu is open and the click was outside the menu and outside the hamburger button
+    else if (mobileMenu && !mobileMenu.classList.contains('hidden') && !mobileMenu.contains(event.target)) {
+      // Do nothing. The user wants to interact with the content.
+      // The menu should only close when the hamburger button is clicked again.
+    }
+  });
+</script>
 	</body>
 </html>

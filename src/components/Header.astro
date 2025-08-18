@@ -1,6 +1,29 @@
 ---
+export interface Props {
+  splinterlandsCategories?: string[];
+  hiveCategories?: string[];
+  discoverStoriesCategories?: string[];
+  currentPath?: string;
+  activeCategorySlug?: string;
+}
+
+const { 
+  splinterlandsCategories, 
+  hiveCategories, 
+  discoverStoriesCategories,
+  currentPath,
+  activeCategorySlug
+} = Astro.props;
+
 const username = import.meta.env.HIVE_USERNAME;
 const avatarUrl = `https://images.hive.blog/u/${username}/avatar`;
+
+const links = [
+  { href: '/', text: 'Home' },
+  { href: '/splinterlands', text: 'Splinterlands' },
+  { href: '/hive', text: 'Hive' },
+  { href: '/discover-stories', text: 'Discover Stories' },
+];
 ---
 
 <header class="fixed top-0 left-0 w-full bg-gray-800 text-white p-4 flex justify-between items-center z-50">
@@ -10,13 +33,104 @@ const avatarUrl = `https://images.hive.blog/u/${username}/avatar`;
       <span class="text-xl font-bold">Quigua's Hived blog</span>
     </a>
   </div>
+
+  {/* Hamburger Menu Button */}
+  <div class="md:hidden">
+    <button id="hamburger-button" class="text-white focus:outline-none">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+      </svg>
+    </button>
+  </div>
+
+  {/* Desktop Menu */}
   <nav class="hidden md:flex space-x-4">
-    <a href="/" class="hover:text-gray-400">Home</a>
-    <a href="/splinterlands" class="hover:text-gray-400">Splinterlands</a>
-    <a href="/hive" class="hover:text-gray-400">Hive</a>
-    <a href="/discover-stories" class="hover:text-gray-400">Discover Stories</a>
+    {links.map(link => (
+      <a href={link.href} class:list={[
+        "hover:text-gray-400"
+      ]}>{link.text}</a>
+    ))}
   </nav>
+
+  {/* Avatar */}
   <div class="flex items-center">
     <img src={avatarUrl} alt="User Avatar" class="h-8 w-8 rounded-full">
   </div>
 </header>
+
+{/* Mobile Menu */}
+<nav id="mobile-menu" class="md:hidden bg-gray-800 text-white p-4 fixed top-16 left-0 w-full z-50 overflow-y-auto">
+  <a href="/" class:list={["block py-2", { "font-bold text-yellow-400 !important": currentPath === '/' }]}>Home</a>
+
+  {/* Flattened Splinterlands Categories */}
+  {splinterlandsCategories && splinterlandsCategories.length > 0 && (
+    <> {/* Fragment to group multiple elements without adding an extra node */}
+      <a href="/splinterlands" class:list={["block py-2", { "font-bold text-yellow-400 !important": currentPath.startsWith('/splinterlands') }]}>Splinterlands</a>
+      {splinterlandsCategories.map(category => {
+        const categoryHref = `/splinterlands/category/${category.toLowerCase().replace(/ /g, '-')}`;
+        return <a href={categoryHref} class:list={["block py-1 ml-4", { "font-bold text-yellow-400 !important": currentPath.startsWith(categoryHref) }]}>{category}</a>
+      })}
+    </>
+  )}
+
+  {/* Flattened Hive Categories */}
+  {hiveCategories && hiveCategories.length > 0 && (
+    <> {/* Fragment to group multiple elements without adding an extra node */}
+      <a href="/hive" class:list={["block py-2", { "font-bold text-yellow-400 !important": currentPath.startsWith('/hive') }]}>Hive</a>
+      {hiveCategories.map(category => {
+        const categoryHref = `/hive/category/${category.toLowerCase().replace(/ /g, '-')}`;
+        return <a href={categoryHref} class:list={["block py-1 ml-4", { "font-bold text-yellow-400 !important": currentPath.startsWith(categoryHref) }]}>{category}</a>
+      })}
+    </>
+  )}
+
+  {/* Flattened Discover Stories Categories */}
+  {discoverStoriesCategories && discoverStoriesCategories.length > 0 && (
+    <> {/* Fragment to group multiple elements without adding an extra node */}
+      <a href="/discover-stories" class:list={["block py-2", { "font-bold text-yellow-400 !important": currentPath.startsWith('/discover-stories') }]}>Discover Stories</a>
+      {discoverStoriesCategories.map(category => {
+        const categoryHref = `/discover-stories/category/${category.toLowerCase().replace(/ /g, '-')}`;
+        return <a href={categoryHref} class:list={["block py-1 ml-4", { "font-bold text-yellow-400 !important": currentPath.startsWith(categoryHref) }]}>{category}</a>
+      })}
+    </>
+  )}
+</nav>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log("Header client-side script started.");
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (!mobileMenu) {
+      console.log("Mobile menu element not found.");
+      return;
+    }
+
+    // Ensure menu starts hidden on small screens
+    if (window.innerWidth < 768) { // Tailwind's 'md' breakpoint is typically 768px
+      mobileMenu.style.display = 'none';
+    }
+
+    const hamburgerButton = document.getElementById('hamburger-button');
+    if (hamburgerButton) {
+      hamburgerButton.addEventListener('click', () => {
+        console.log("Hamburger button clicked. Toggling mobile menu visibility.");
+        if (mobileMenu.style.display === 'none') {
+          mobileMenu.style.display = 'block'; // Show menu
+        } else {
+          mobileMenu.style.display = 'none'; // Hide menu
+        }
+      });
+    } else {
+      console.log("Hamburger button not found.");
+    }
+
+    // Add click listener to close menu when a link is clicked
+    mobileMenu.addEventListener('click', (event) => {
+      console.log("Click event fired on mobile menu. Target tag name:", event.target.tagName);
+      if (event.target.tagName === 'A') {
+        console.log("Clicked element is an A tag. Hiding menu.");
+        mobileMenu.style.display = 'none'; // Hide menu
+      }
+    });
+  });
+</script>
