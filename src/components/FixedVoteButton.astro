@@ -1,0 +1,65 @@
+---
+export interface Props {
+  author: string;
+  permlink: string;
+}
+
+const { author, permlink } = Astro.props;
+---
+
+<button
+  id="fixed-vote-button"
+  class="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full shadow-lg z-50
+         flex items-center justify-center text-center
+         sm:hidden"
+  data-author={author}
+  data-permlink={permlink}
+  client:load
+>
+  Vote on Hive
+</button>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const fixedVoteButton = document.getElementById('fixed-vote-button');
+
+    fixedVoteButton.addEventListener('click', () => {
+      if (typeof window.hive_keychain === 'undefined') {
+        alert('Please install the Hive Keychain extension.');
+        return;
+      }
+
+      const author = fixedVoteButton.dataset.author;
+      const permlink = fixedVoteButton.dataset.permlink;
+      const weight = 10000; // 100% vote weight
+
+      window.hive_keychain.requestSignBuffer(
+        null, // Let Keychain prompt for the user
+        'Sign to vote for this post',
+        'Posting',
+        (response) => {
+          if (!response.success) {
+            alert('Keychain signing failed: ' + response.message);
+            return;
+          }
+
+          const username = response.data.username;
+
+          window.hive_keychain.requestVote(
+            username,
+            permlink,
+            author,
+            weight,
+            (voteResponse) => {
+              if (voteResponse.success) {
+                alert('Vote successful!');
+              } else {
+                alert('Vote failed: ' + (voteResponse.message || 'Unknown error'));
+              }
+            }
+          );
+        }
+      );
+    });
+  });
+</script>

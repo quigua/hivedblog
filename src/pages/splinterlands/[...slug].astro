@@ -54,6 +54,9 @@ const hivePostUrl = `https://peakd.com/@${entry.data.author}/${entry.slug}`;
     { label: entry.data.title, href: `/splinterlands/${entry.slug}` }
   ]}
   activeCategorySlug={entry.data.category.toLowerCase().replace(/ /g, '-')}
+  postUrl={hivePostUrl}
+  author={entry.data.author}
+  permlink={entry.slug}
 >
   <main class="container mx-auto flex flex-col md:flex-row gap-8 px-4">
     <!-- Main Content Area -->
@@ -70,7 +73,53 @@ const hivePostUrl = `https://peakd.com/@${entry.data.author}/${entry.slug}`;
         <div class="flex items-center justify-between mb-4">
           <p class="text-gray-700">Votes: {entry.data.votes || 0} | Earnings: {earningsValue}</p>
           <div class="space-x-2">
-            <a href={hivePostUrl} target="_blank" rel="noopener noreferrer" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-sm">Vote on Hive</a>
+            <button id="vote-button-inline" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-sm hidden sm:block" data-author={entry.data.author} data-permlink={entry.slug}>Vote on Hive</button>
+            <script>
+              document.addEventListener('DOMContentLoaded', () => {
+                const voteButtonInline = document.getElementById('vote-button-inline');
+
+                if (voteButtonInline) {
+                  voteButtonInline.addEventListener('click', () => {
+                    if (typeof window.hive_keychain === 'undefined') {
+                      alert('Please install the Hive Keychain extension.');
+                      return;
+                    }
+
+                    const author = voteButtonInline.dataset.author;
+                    const permlink = voteButtonInline.dataset.permlink;
+                    const weight = 10000; // 100% vote weight
+
+                    window.hive_keychain.requestSignBuffer(
+                      null, // Let Keychain prompt for the user
+                      'Sign to vote for this post',
+                      'Posting',
+                      (response) => {
+                        if (!response.success) {
+                          alert('Keychain signing failed: ' + response.message);
+                          return;
+                        }
+
+                        const username = response.data.username;
+
+                        window.hive_keychain.requestVote(
+                          username,
+                          permlink,
+                          author,
+                          weight,
+                          (voteResponse) => {
+                            if (voteResponse.success) {
+                              alert('Vote successful!');
+                            } else {
+                              alert('Vote failed: ' + (voteResponse.message || 'Unknown error'));
+                            }
+                          }
+                        );
+                      }
+                    );
+                  });
+                }
+              });
+            </script>
             <a href={hivePostUrl + '#comments'} target="_blank" rel="noopener noreferrer" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 rounded text-sm">Reply on Hive</a>
           </div>
         </div>
