@@ -1,8 +1,7 @@
 
 ---
 title: ¿Es una Alternativa Soslayar el Nuevo Comportamiento de la Comunidad Hispanohablante?
-description: <div class="pull-right"><center><img src="https://steemitimages.com/DQme2eBjMZCBBAC91LN6dY55HGeGwm5TkmojU9YSDunYkJb/image.png"/><a
-  href="http://pixaba...
+description: Un llamado a la comunidad hispanohablante madura para accionar en pro de erradicar los comportamiento infantiles y abusos en nuestra comunidad
 author: quigua
 date: 2017-09-18 05:39:00
 tags:
@@ -329,10 +328,13 @@ beneficiaries: []
 draft: false
 ---
 
-<div class="pull-right"><center><img src="https://steemitimages.com/DQme2eBjMZCBBAC91LN6dY55HGeGwm5TkmojU9YSDunYkJb/image.png"/><a href="http://pixabay.com">Fuente: Pixabay</a></center></div>
-
 
 Es imperativo, desde todos los puntos de vistas, desde todos los ángulos que se decida analizar una situación crítica, que se tomen las decisiones con la mayor calma, y sobre todo con la mínima animadversión posible. Un llamado a la comunidad hispanohablante madura para accionar en pro de erradicar los comportamiento infantiles y abusos en nuestra comunidad. 
+
+
+![Trembling image](https://steemitimages.com/DQme2eBjMZCBBAC91LN6dY55HGeGwm5TkmojU9YSDunYkJb/image.png)
+
+<a href="http://pixabay.com">Fuente: Pixabay</a>
 
 Independientemente de la retórica y filosofía que motive las actuaciones de los miembros de una comunidad, sea esta grande o pequeña, influyente o no, es totalmente contraproducente dejar que su verbosidad justificada a través de una supuesta limpieza (¿étnica? ¿literaria? ¿de nacionalidades? ¿de otras formas de pensar?) se imponga como forma de actuar y de ser de toda una red social.
 

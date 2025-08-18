@@ -24,7 +24,7 @@ const filteredPosts = allPosts.filter(post => post.data.category.toLowerCase().r
   { label: 'Discover Stories', href: '/discover-stories' },
   { label: `Category: ${categoryName}`, href: `/discover-stories/category/${categorySlug}` }
 ]}>
-  <main class="container mx-auto py-10 flex flex-col md:flex-row gap-8">
+  <main class="container mx-auto py-10 flex flex-col md:flex-row gap-8 px-4">
     <!-- Main Content Area -->
     <div class="w-full md:w-3/4">
       <h1 class="text-4xl font-bold mb-6">Category: <span class="capitalize">{categoryName}</span></h1>

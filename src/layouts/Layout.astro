@@ -82,38 +82,38 @@ const discoverStoriesCategories = [...new Set(allDiscoverStoriesPosts.map(post =
 			window.addEventListener('resize', adjustMainPadding);
 		</script>
 		<script is:inline>
-  // This script uses event delegation to ensure the hamburger menu works reliably.
-
-  // Function to toggle the menu's visibility and store its state
-  function toggleMobileMenu() {
+  document.addEventListener('DOMContentLoaded', () => {
     const mobileMenu = document.getElementById('mobile-menu');
-    if (mobileMenu) {
-      const isHidden = mobileMenu.classList.toggle('hidden');
-      sessionStorage.setItem('isMenuOpen', !isHidden);
-    }
-  }
-
-  // Restore menu state on initial page load
-  // This runs only once when the script is first parsed
-  const initialMobileMenu = document.getElementById('mobile-menu');
-  if (initialMobileMenu && sessionStorage.getItem('isMenuOpen') === 'true') {
-    initialMobileMenu.classList.remove('hidden');
-  }
-
-  // Listen for clicks on the whole document using event delegation
-  document.addEventListener('click', (event) => {
     const hamburgerButton = document.getElementById('hamburger-button');
-    const mobileMenu = document.getElementById('mobile-menu');
 
-    // If the click was on the hamburger button or inside it
-    if (hamburgerButton && hamburgerButton.contains(event.target)) {
-      toggleMobileMenu();
-    } 
-    // If the menu is open and the click was outside the menu and outside the hamburger button
-    else if (mobileMenu && !mobileMenu.classList.contains('hidden') && !mobileMenu.contains(event.target)) {
-      // Do nothing. The user wants to interact with the content.
-      // The menu should only close when the hamburger button is clicked again.
+    if (!mobileMenu || !hamburgerButton) {
+      console.log("Mobile menu or hamburger button not found.");
+      return;
     }
+
+    // Ensure menu starts hidden on small screens
+    // And remove any stored state from previous sessions
+    mobileMenu.classList.add('hidden');
+    sessionStorage.removeItem('isMenuOpen');
+
+    // Toggle menu visibility on hamburger button click
+    hamburgerButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close menu when a menu item is clicked (event delegation on mobileMenu)
+    mobileMenu.addEventListener('click', (event) => {
+      if (event.target.tagName === 'A') {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+
+    // Optional: Close menu if clicked outside (but not on hamburger button)
+    document.addEventListener('click', (event) => {
+      if (!mobileMenu.contains(event.target) && !hamburgerButton.contains(event.target)) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
   });
 </script>
 	</body>
